@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class JDBCInsertTEST {
-	public static void main(String[] args) {
+	public static void main(String args[]) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -17,8 +17,8 @@ public class JDBCInsertTEST {
 			conn = DriverManager.getConnection(url, "root", "");
 			System.out.println("연결 성공!");
 			
-			String sql = "INSERT INTO article";
-			sql += " SET regDate = NOW(),";
+			String sql = "INSERT INTO article ";
+			sql += "SET regDate = NOW(),";
 			sql += "updateDate = NOW(),";
 			sql += "title = CONCAT('제목', RAND()),";
 			sql += "`body` = CONCAT('내용', RAND());";
