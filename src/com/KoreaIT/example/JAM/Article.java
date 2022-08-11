@@ -1,5 +1,7 @@
 package com.KoreaIT.example.JAM;
 
+import java.util.Map;
+
 public class Article extends Object {
 	public int id;
 	public String regDate;
@@ -15,12 +17,15 @@ public class Article extends Object {
 		this.body = body;
 	}
 	
-	public Article(int id, String title, String body) {
-		this.id = id;
-		this.title = title;
-		this.body = body;
+<<<<<<< HEAD
+	public Article(Map<String, Object> articleMap) {
+		this.id = (int) articleMap.get("id");
+		this.title = (String) articleMap.get("title");
+		this.body = (String) articleMap.get("body");
 	}
 	
+=======
+>>>>>>> 1de35fae383b1e1d9394d1a0f344c92c0acb135d
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", regDate=" + regDate + ", updateDate=" + updateDate + ", title=" + title
