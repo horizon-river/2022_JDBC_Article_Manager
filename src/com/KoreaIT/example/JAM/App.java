@@ -134,30 +134,27 @@ public class App {
 		} else if(cmd.startsWith("article delete ")) {
 			int id = Integer.parseInt(cmd.split(" ")[2]);
 			
-			PreparedStatement pstmt = null;
+			SecSql sql = new SecSql();
+
+			sql.append("SELECT COUNT(*)");
+			sql.append("FROM article");
+			sql.append("WHERE id = ?", id);
 			
-			try {				
-				String sql = "DELETE FROM article ";
-				sql += "WHERE id = "+ id +";";
-				
-				System.out.println(sql);
-				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.executeUpdate();
-				
-			} catch (SQLException e) {
-				System.out.println("에러: " + e);
-			} finally {
-				try {
-					if (pstmt != null && !pstmt.isClosed()) {
-						pstmt.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			int articlesCount = DBUtil.selectRowIntValue(conn, sql);
+			
+			if(articlesCount == 0) {
+				System.out.printf("== %d번 게시물은 존재하지 않습니다. ==\n", id);
+				return 0;
 			}
 			
+			sql = new SecSql();
+			sql.append("DELETE FROM article");
+			sql.append("WHERE id = ?", id);
+			
+			DBUtil.delete(conn, sql);
+			
 			System.out.printf("== %d번 게시물이 삭제되었습니다. ==\n", id);
+			
 		}
 		
 		if (cmd.equals("exit")) {
