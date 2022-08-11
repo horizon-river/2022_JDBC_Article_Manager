@@ -19,6 +19,7 @@ updateDate = NOW(),
 title = CONCAT('제목', RAND()),
 `body` = CONCAT('내용', RAND());
 
-SELECT * FROM article;
+SELECT COUNT(*)
+FROM article
+WHERE id = 1;
 ```
-
