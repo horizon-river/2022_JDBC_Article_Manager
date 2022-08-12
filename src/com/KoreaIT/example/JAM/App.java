@@ -76,6 +76,20 @@ public class App {
 					System.out.println("아이디를 입력해주세요.");
 					continue;
 				}
+				
+				SecSql sql = new SecSql();
+				
+				sql.append("SELECT COUNT(*) > 0");
+				sql.append("FROM `member`");
+				sql.append("WHERE loginId = ?", loginId);
+				
+				boolean isLoginIdDup = DBUtil.selectRowBooleanValue(conn, sql);
+				
+				if(isLoginIdDup){
+					System.out.printf("%s는(은) 이미 사용중인 아이디입니다.\n", loginId);
+					continue;
+				}
+				
 				break;
 			}
 			
@@ -135,7 +149,7 @@ public class App {
 			
 			int id = DBUtil.insert(conn, sql);
 			
-			System.out.printf("%d번 회원님, 가입 완료 되었습니다.\n", id);
+			System.out.printf("%s님, 가입 완료 되었습니다.\n", loginId);
 			
 		} else if(cmd.equals("article write")) {
 			System.out.println("== 게시물 작성 ==");
