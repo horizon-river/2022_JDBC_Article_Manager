@@ -120,7 +120,6 @@ public class DBUtil {
 			stmt = sql.getPreparedStatement(dbConn);
 			stmt.executeUpdate();
 			rs = stmt.getGeneratedKeys();
-
 			if (rs.next()) {
 				id = rs.getInt(1);
 			}
