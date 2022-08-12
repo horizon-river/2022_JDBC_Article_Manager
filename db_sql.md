@@ -4,7 +4,7 @@ DROP DATABASE IF EXISTS article_manager;
 CREATE DATABASE article_manager;
 
 # DB 선택
-USE a2;
+USE article_manager;
 
 # 게시글 테이블 생성
 CREATE TABLE article(
@@ -17,7 +17,7 @@ CREATE TABLE article(
 
 # 회원 테이블 생성
 CREATE TABLE `member` (
-    id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
     loginId CHAR(20) NOT NULL,
@@ -44,5 +44,4 @@ loginPw = CONCAT('TestPw', RAND()),
 SELECT * FROM article;
 
 SELECT * FROM `member`;
-
 ```

@@ -1,23 +1,9 @@
 package com.KoreaIT.example.JAM.controller;
 
-import java.sql.Connection;
-import java.util.Scanner;
-
 import com.KoreaIT.example.JAM.util.DBUtil;
 import com.KoreaIT.example.JAM.util.SecSql;
 
-public class MemberController {
-
-	private Connection conn;
-	private Scanner sc;
-
-	public void setConn(Connection conn) {
-		this.conn = conn;
-	}
-
-	public void setScanner(Scanner sc) {
-		 this.sc = sc;
-	}
+public class MemberController extends Controller {
 	
 	public void doJoin(String cmd) {
 		String loginId = null;
@@ -98,14 +84,12 @@ public class MemberController {
 		
 		sql.append("INSERT INTO `member`");
 		sql.append(" SET regDate = NOW()");
-		sql.append(", updateDate = NOW()");
-		sql.append(", loginId = ?", loginId);
-		sql.append(", loginPw = ?", loginPw);
-		sql.append(", `name` = ?", name);
+		sql.append(",updateDate = NOW()");
+		sql.append(",loginId = ?", loginId);
+		sql.append(",loginPw = ?", loginPw);
+		sql.append(",`name` = ?", name);
 		
-		System.out.println(sql);
-		
-		int id = DBUtil.insert(conn, sql);
+		DBUtil.insert(conn, sql);
 		
 		System.out.printf("%s님, 가입 완료 되었습니다.\n", loginId);
 		
