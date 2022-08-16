@@ -3,15 +3,10 @@ package com.KoreaIT.example.JAM;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import com.KoreaIT.example.JAM.controller.ArticleController;
 import com.KoreaIT.example.JAM.controller.MemberController;
-import com.KoreaIT.example.JAM.util.DBUtil;
-import com.KoreaIT.example.JAM.util.SecSql;
 
 public class App {
 	public void run() {
@@ -68,13 +63,9 @@ public class App {
 			return -1;
 		}
 		
-		MemberController memberController = new MemberController();
-		memberController.setConn(conn);
-		memberController.setScanner(sc);
+		MemberController memberController = new MemberController(conn, sc);
 		
-		ArticleController articleController = new ArticleController();
-		articleController.setConn(conn);
-		articleController.setScanner(sc);
+		ArticleController articleController = new ArticleController(conn, sc);
 		
 		if(cmd.equals("member join")) {
 			memberController.doJoin(cmd);
