@@ -90,10 +90,21 @@ public class MemberController extends Controller {
 		String loginId = null;
 		String loginPw = null;
 		
+		int loginIdTryMaxCount = 3;
+		int loginIdTryCount = 0;
+		
+		System.out.println("== 로그인 ==");
+		
 		while(true) {
+			if(loginIdTryCount >= loginIdTryMaxCount) {
+				System.out.println("아이디를 확인하고 다시 시도해주세요.");
+				return;
+			}
+			
 			System.out.printf("아이디 : ");
 			loginId = sc.nextLine().trim();
 			if(loginId.length() == 0) {
+				loginIdTryCount++;
 				System.out.println("아이디를 입력해주세요.");
 				continue;
 			}
@@ -101,6 +112,7 @@ public class MemberController extends Controller {
 			boolean isLoginIdDup = memberService.isLoginIdDup(loginId);
 			
 			if(isLoginIdDup == false){
+				loginIdTryCount++;
 				System.out.printf("%s는(은) 존재하지 않는 아이디입니다.\n", loginId);
 				continue;
 			}
@@ -110,11 +122,11 @@ public class MemberController extends Controller {
 		
 		Member member = memberService.getMemberByLoginId(loginId);
 		
-		int tryMaxCount = 3;
-		int tryCount = 0;
+		int loginPwTryMaxCount = 3;
+		int loginPwTryCount = 0;
 		
 		while(true) {
-			if(tryCount >= tryMaxCount) {
+			if(loginPwTryCount >= loginPwTryMaxCount) {
 				System.out.println("비밀번호를 확인하고 다시 시도해주세요.");
 				break;
 			}
@@ -123,21 +135,34 @@ public class MemberController extends Controller {
 			loginPw = sc.nextLine().trim();
 			
 			if(loginPw.length() == 0) {
-				tryCount++;
+				loginPwTryCount++;
 				System.out.println("비밀번호를 입력해주세요.");
 				continue;
 			}			
 			
 			if(member.loginPw.equals(loginPw) == false) {
-				tryCount++;
+				loginPwTryCount++;
 				System.out.println("비밀번호가 일치하지 않습니다.");
 				continue;
 			}
 			
 			System.out.printf("%s님 환영합니다.\n", member.name);
+			
+			Container.session.loginedMemberId = member.id;
+			Container.session.loginedMember = member;
+			
 			break;
 		}
 		
+	}
+
+	public void showProfile(String cmd) {
+		if(Container.session.loginedMemberId == -1) {
+			System.out.println("로그인 상태가 아닙니다.");
+			return;
+		}else {
+			System.out.println(Container.session.loginedMember.id);
+		}
 	}
 
 }
