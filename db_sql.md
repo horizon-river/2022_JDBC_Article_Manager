@@ -25,6 +25,7 @@ CREATE TABLE `member` (
     `name` CHAR(200) NOT NULL
 );
 
+# 임시 회원 데이터
 INSERT INTO `member`
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -40,7 +41,40 @@ loginPw = 'test2',
 `name` = '김영희';
 
 #게시물 테이블에 memberId 칼럼 추가
-ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL;
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+# 임시 게시글 데이터
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목1',
+`body` = '내용1',
+memberId = 1;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목2',
+`body` = '내용2',
+memberId = 1;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목3',
+`body` = '내용3',
+memberId = 2;
+
+INSERT INTO article
+SET regDate = NOW(),
+updateDate = NOW(),
+title = '제목4',
+`body` = '내용4',
+memberId = 2;
+
+# 테이블 조회
+SELECT * FROM article;
+SELECT * FROM `member`;
 
 /*
 # 테스트 게시글 생성
@@ -58,9 +92,4 @@ loginId = CONCAT('TestID', RAND()),
 loginPw = CONCAT('TestPw', RAND()),
 `name` = CONCAT('TestName', RAND());
 */
-
-# 테이블 조회
-SELECT * FROM article;
-
-SELECT * FROM `member`;
 ```

@@ -9,11 +9,6 @@ import com.KoreaIT.example.JAM.util.SecSql;
 
 public class MemberDao {
 	
-
-	public MemberDao() {
-		
-	}
-
 	public boolean isLoginIdDup(String loginId) {
 		SecSql sql = new SecSql();
 		

@@ -10,18 +10,13 @@ import com.KoreaIT.example.JAM.util.DBUtil;
 import com.KoreaIT.example.JAM.util.SecSql;
 
 public class ArticleDao {
-	
-	
-	public ArticleDao() {
-		
-	}
 
 	public int doWrite(int memberId, String title, String body) {
 		SecSql sql = new SecSql();
 		sql.append("INSERT INTO article ");
 		sql.append("SET regDate = NOW()");
 		sql.append(",updateDate = NOW()");
-		sql.append(",memberId = ?", memberId);
+		sql.append(",updateDate = ?", memberId);
 		sql.append(",title = ?", title);
 		sql.append(",`body` = ?", body);
 		
@@ -70,9 +65,11 @@ public class ArticleDao {
 	public List<Article> getArticles() {
 		SecSql sql = new SecSql();
 		
-		sql.append("SELECT *");
-		sql.append("FROM article");
-		sql.append("ORDER BY id DESC");
+		sql.append("SELECT A.*, M.name AS extra__writer");
+		sql.append("FROM article AS A");
+		sql.append("INNER JOIN `member` AS M");
+		sql.append("ON A.memberId = M.id");
+		sql.append("ORDER BY A.id DESC");
 		
 		List<Map<String, Object>> articlesListMap = DBUtil.selectRows(Container.conn, sql);
 		
