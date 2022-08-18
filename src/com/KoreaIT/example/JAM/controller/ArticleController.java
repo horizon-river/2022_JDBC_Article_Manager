@@ -50,6 +50,11 @@ public class ArticleController extends Controller{
 			return;
 		}
 		
+		if(article.memberId != Container.session.loginedMemberId) {
+			System.out.println("해당 게시글에 대한 권한이 없습니다.");
+			return;
+		}
+		
 		System.out.printf("== %d번 게시물 수정 ==\n", id);
 		System.out.printf("새 제목 : ");
 		String title = sc.nextLine();
@@ -94,6 +99,11 @@ public class ArticleController extends Controller{
 		
 		if(article == null) {
 			System.out.printf("== %d번 게시물은 존재하지 않습니다. ==\n", id);
+			return;
+		}
+		
+		if(article.memberId != Container.session.loginedMemberId) {
+			System.out.println("해당 게시글에 대한 권한이 없습니다.");
 			return;
 		}
 		
