@@ -25,6 +25,24 @@ CREATE TABLE `member` (
     `name` CHAR(200) NOT NULL
 );
 
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test1',
+loginPw = 'test1',
+`name` = '김철수';
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'test2',
+loginPw = 'test2',
+`name` = '김영희';
+
+#게시물 테이블에 memberId 칼럼 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL;
+
+/*
 # 테스트 게시글 생성
 INSERT INTO article
 SET regDate = NOW(),
@@ -39,6 +57,7 @@ updateDate = NOW(),
 loginId = CONCAT('TestID', RAND()),
 loginPw = CONCAT('TestPw', RAND()),
 `name` = CONCAT('TestName', RAND());
+*/
 
 # 테이블 조회
 SELECT * FROM article;
